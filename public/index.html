@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html ng-app="blog">
+<head>
+    <meta charset="UTF-8">
+    <base href="/">
+    <title>Index</title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="bundle.js"></script>
+</head>
+
+<body ng-controller="MainController as main">
+
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">Blog</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li ng-if="!main.isAuthenticated()"><a ng-href="/login">Login</a></li>
+                <li ng-if="!main.isAuthenticated()"><a ng-href="/register">Register</a></li>
+
+                <li ng-if="main.isAuthenticated()" class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                       aria-expanded="false">Menu <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a ng-href="/account">Account</a></li>
+                        <li><a ng-href="/posts">Posts</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li ng-if="main.isAuthenticated()"><a ng-href="/" ng-click="main.logout()">Logout</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+
+        </div>
+    </div>
+
+    <div ng-view></div>
+</div>
+
+</body>
+</html>
