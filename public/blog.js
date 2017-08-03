@@ -1,4 +1,9 @@
 angular.module('blog', ['ngRoute'])
+
+    .constant('config', {
+        apiEndpoint: 'http://localhost:8090'
+    })
+
     .config(['$routeProvider', '$locationProvider',
         function ($routeProvider, $locationProvider) {
             $routeProvider
@@ -54,8 +59,9 @@ angular.module('blog', ['ngRoute'])
         }
     }])
 
-    .controller('MainController', ['authService', '$http', '$location',
-        function (authService, $http, $location) {
+    .controller('MainController', ['config', 'authService', '$scope', '$http', '$location',
+        function (config, authService, $scope, $http, $location) {
+
             var main = this;
 
             this.isAuthenticated = function () {
@@ -68,67 +74,71 @@ angular.module('blog', ['ngRoute'])
                 $location.path('/');
             };
 
-            $http.get('http://localhost:8090/posts').then(function (response) {
+            $http.get(config.apiEndpoint + '/posts').then(function (response) {
                 main.posts = response.data;
             })
         }])
 
-    .controller('RegistrationController', ['$http', '$location',
-        function ($http, $location) {
+    .controller('RegistrationController', ['config', '$http', '$location',
+        function (config, $http, $location) {
+
             this.register = function (user) {
-                $http.post('http://localhost:8090/register',
+                $http.post(config.apiEndpoint + '/register',
                     {username: user.username, password: user.password})
                     .then(function () {
                         $location.path('/login');
-                    }, function (error) {
-                        console.error(error)
+                    }, function () {
+                        // console.error(error)
                     })
             }
         }])
 
-    .controller('LoginController', ['$http', '$location', 'authService',
-        function ($http, $location, authService) {
+    .controller('LoginController', ['config', '$http', '$location', 'authService', 'userService',
+        function (config, $http, $location, authService, userService) {
 
             this.login = function (user) {
-                $http.post('http://localhost:8090/login',
+                $http.post(config.apiEndpoint + '/login',
                     {username: user.username, password: user.password})
                     .then(function (response) {
                         authService.setToken(response.headers()['authorization']);
 
-                        $location.path('/account');
-                    }, function (error) {
-                        console.error(error)
+                        $http.defaults.headers.common['Authorization'] = authService.getToken();
+
+                        $http.get(config.apiEndpoint + '/profile')
+                            .then(function (response) {
+                                userService.setId(response.data.id);
+
+                                $location.path('/posts');
+                            });
+                    }, function () {
+                        // console.error(error)
                     })
             };
         }])
 
-    .controller('AccountController', ['$http', 'authService', 'userService',
-        function ($http, authService, userService) {
+    .controller('AccountController', ['config', '$http', 'authService', 'userService',
+        function (config, $http, authService, userService) {
+
             var account = this;
 
-            $http.defaults.headers.common['Authorization'] = authService.getToken();
-
-            $http.get('http://localhost:8090/profile')
-                .then(function (response) {
-                    userService.setId(response.data.id);
-                    account.userId = response.data.id;
-                })
+            account.userId = userService.getId();
         }])
 
-    .controller('PostsController', ['$http', 'authService', 'userService',
-        function ($http, authService, userService) {
+    .controller('PostsController', ['config', '$http', 'authService', 'userService',
+        function (config, $http, authService, userService) {
+
             var postList = this;
             var userId = userService.getId();
 
             $http.defaults.headers.common['Authorization'] = authService.getToken();
 
-            $http.get('http://localhost:8090/users/' + userId + /posts/)
+            $http.get(config.apiEndpoint + '/users/' + userId + /posts/)
                 .then(function (response) {
                     postList.posts = response.data;
                 });
 
             postList.createPost = function () {
-                $http.post('http://localhost:8090/users/' + userId + /posts/, postList.newPost)
+                $http.post(config.apiEndpoint + '/users/' + userId + /posts/, postList.newPost)
                     .then(function (response) {
                         postList.newPost = {};
                         postList.postForm.$setPristine();
@@ -142,7 +152,7 @@ angular.module('blog', ['ngRoute'])
             postList.deletePost = function (post) {
                 var postIndex = postList.posts.indexOf(post);
 
-                $http.delete('http://localhost:8090/posts/' + post.id).then(function () {
+                $http.delete(config.apiEndpoint + '/posts/' + post.id).then(function () {
                     postList.posts.splice(postIndex, 1);
                 })
             };
