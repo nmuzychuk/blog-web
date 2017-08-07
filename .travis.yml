@@ -1,0 +1,14 @@
+sudo: required
+
+language: node_js
+node_js:
+- "7"
+
+services:
+- docker
+
+before_script:
+- npm install -g yarn
+
+script:
+- docker-compose up -d && sleep 15 && yarn test

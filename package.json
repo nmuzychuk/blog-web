@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server --content-base ./public",
-    "lint": "eslint **/*.js --ignore-pattern node_modules/"
+    "lint": "eslint **/*.js --ignore-pattern node_modules/",
+    "test": "bash scripts/test.sh"
   },
   "dependencies": {
     "angular": "^1.6.4",
