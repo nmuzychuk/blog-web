@@ -1,0 +1,12 @@
+version: "2"
+services:
+  blog-api:
+    build: https://github.com/nmuzychuk/blog-api.git
+    ports:
+      - "8090:8090"
+  blog-web:
+    build: .
+    ports:
+      - "8080:80"
+    depends_on:
+      - blog-api

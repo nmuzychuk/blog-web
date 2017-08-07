@@ -4,5 +4,18 @@
 ## Overview
 AngularJS client app for [Blog REST API](https://github.com/nmuzychuk/blog-api)
 
+## Docker
+Run blog-web
+```
+docker build -t blog-web .
+docker run -p 8080:80 blog-web
+```
+
+## Compose
+Run blog-web and blog-api
+```
+docker-compose up
+```
+
 ## License
 This project is released under the [MIT License](LICENSE.txt)
