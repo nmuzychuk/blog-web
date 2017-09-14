@@ -7,6 +7,11 @@ angular.module('blog', ['ngRoute'])
     .config(['$routeProvider', '$locationProvider',
         function ($routeProvider, $locationProvider) {
             $routeProvider
+                .when('/latest', {
+                    templateUrl: 'latest.html',
+                    controller: 'LatestPostsController',
+                    controllerAs: 'postList'
+                })
                 .when('/register', {
                     templateUrl: 'register.html',
                     controller: 'RegistrationController',
@@ -59,10 +64,8 @@ angular.module('blog', ['ngRoute'])
         }
     }])
 
-    .controller('MainController', ['config', 'authService', '$scope', '$http', '$location',
-        function (config, authService, $scope, $http, $location) {
-
-            var main = this;
+    .controller('MainController', ['config', 'authService', '$http', '$location',
+        function (config, authService, $http, $location) {
 
             this.isAuthenticated = function () {
                 return (authService.getToken() !== null &&
@@ -71,12 +74,20 @@ angular.module('blog', ['ngRoute'])
 
             this.logout = function () {
                 authService.removeToken();
-                $location.path('/');
             };
 
+            $location.path('/latest');
+        }])
+
+    .controller('LatestPostsController', ['config', '$http',
+        function (config, $http) {
+
+            var postList = this;
+
             $http.get(config.apiEndpoint + '/posts').then(function (response) {
-                main.posts = response.data;
+                postList.posts = response.data;
             })
+
         }])
 
     .controller('RegistrationController', ['config', '$http', '$location',
