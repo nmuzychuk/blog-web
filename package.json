@@ -9,14 +9,14 @@
     "test": "bash scripts/test.sh"
   },
   "dependencies": {
-    "angular": "^1.6.4",
+    "angular": "^1.7.7",
     "angular-route": "1.6.4",
-    "bootstrap": "^3.3.7",
-    "jquery": "^3.2.1",
-    "webpack": "^3.3.0"
+    "bootstrap": "^3.4.1",
+    "jquery": "^3.3.1",
+    "webpack": "^3.12.0"
   },
   "devDependencies": {
-    "eslint": "^4.3.0",
-    "webpack-dev-server": "^2.6.1"
+    "eslint": "^4.19.1",
+    "webpack-dev-server": "^3.1.14"
   }
 }
