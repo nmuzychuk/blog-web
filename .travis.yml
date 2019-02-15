@@ -2,13 +2,10 @@ sudo: required
 
 language: node_js
 node_js:
-- "7"
+- "10"
 
 services:
 - docker
 
-before_script:
-- npm install -g yarn
-
 script:
-- docker-compose up -d && sleep 15 && yarn test
+- docker-compose up -d && sleep 15 && npm run-script test

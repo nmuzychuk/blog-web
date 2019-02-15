@@ -1,17 +1,9 @@
-FROM node:8
-
-RUN npm install -g yarn webpack
+FROM node:10
 
 COPY . /usr/src/blog-web
 WORKDIR /usr/src/blog-web
 
-RUN yarn install
-RUN webpack
+RUN npm install
+RUN npx webpack -p
 
-RUN apt-get update -qq && apt-get install -y nginx
-
-RUN rm -rf /var/www/html/* && \
-    cp -r /usr/src/blog-web/public/* /var/www/html
-WORKDIR /var/www/html
-
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["node", "server.js"]
