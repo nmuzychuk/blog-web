@@ -9,7 +9,7 @@
     "test": "bash scripts/test.sh"
   },
   "dependencies": {
-    "angular": "^1.7.8",
+    "angular": "^1.7.9",
     "angular-route": "^1.7.8",
     "bootstrap": "^3.4.1",
     "express": "^4.17.1",
