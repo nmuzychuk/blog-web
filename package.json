@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "angular": "^1.8.0",
-    "angular-route": "^1.7.9",
+    "angular-route": "^1.8.0",
     "bootstrap": "^3.4.1",
     "express": "^4.17.1",
     "jquery": "^3.5.1",
