@@ -15,7 +15,7 @@
     "express": "^4.17.1",
     "jquery": "^3.5.1",
     "lodash": ">=4.17.20",
-    "js-yaml": ">=3.14.0"
+    "js-yaml": ">=3.14.1"
   },
   "devDependencies": {
     "eslint": "^7.10.0",
