@@ -1,5 +1,5 @@
 # Blog Web
-[![Build Status](https://travis-ci.org/nmuzychuk/blog-web.svg?branch=master)](https://travis-ci.org/nmuzychuk/blog-web)
+[![Node.js CI](https://github.com/nmuzychuk/blog-web/actions/workflows/node.js.yml/badge.svg)](https://github.com/nmuzychuk/blog-web/actions/workflows/node.js.yml)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/8ac2e162b92f4f61b952c02df288dc8c)](https://www.codacy.com/app/nmuzychuk/blog-web)
 
 ## Overview
