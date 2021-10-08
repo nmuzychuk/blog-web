@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server --content-base ./public",
-    "lint": "eslint **/*.js --ignore-pattern node_modules/",
+    "lint": "eslint public/*.js",
     "test": "bash scripts/test.sh"
   },
   "dependencies": {
