@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "eslint": "^8.44.0",
-    "webpack": "^5.88.0",
+    "webpack": "^5.88.1",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^3.11.2"
   },
